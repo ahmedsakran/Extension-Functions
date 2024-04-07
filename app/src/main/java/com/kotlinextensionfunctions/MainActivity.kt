@@ -29,13 +29,24 @@ class MainActivity : ComponentActivity() {
 }
 
 //region Extension Functions
+//example 1
 fun String.RemoveFirstLastChars():String {
     return this.substring(1,this.length-1);
 }
 fun String.RemoveFirstLastChars_V2():String = this.substring(1,this.length-1);
 
+//example 2
 fun String.getAllWordsInQuery():List<String>{
     return this.split(" ");
+}
+
+//example 3
+class Telephone(
+    val number:String
+)
+fun Telephone.call(): Int {
+    var x= number.toInt()+9
+    return x;
 }
 //endregion
 
@@ -53,8 +64,10 @@ fun MyApp(modifier:Modifier=Modifier){
             horizontalAlignment =Alignment.Start
         ){
             val input:String ="I Like Android"
+            val tele = Telephone("25")
             showRemovedFirstLastChars(input.RemoveFirstLastChars())
             showgetAllWordsInQuery(input.getAllWordsInQuery())
+            access_member_properties(tele.call().toString())
         }
 
 
@@ -78,9 +91,16 @@ fun showgetAllWordsInQuery(input: List<String>){
         color = Color.Red
     )
 }
+
+@Composable
+fun access_member_properties(input: String){
+    Text(
+        text = "Result = $input",
+        fontSize = 24.sp ,
+        color = Color.Red
+    )
+}
 //endregion
-
-
 
 //region Preview Area
 @Preview(showBackground = true)
@@ -98,6 +118,16 @@ fun getAllWordsInQueryPreview() {
     KotlinExtensionFunctionsTheme {
         val input:String ="I Like Android"
         showgetAllWordsInQuery(input.getAllWordsInQuery())
+    }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun access_member_propertiesPreview() {
+    KotlinExtensionFunctionsTheme {
+        val tele = Telephone("25")
+        access_member_properties(tele.call().toString())
     }
 }
 //endregion
